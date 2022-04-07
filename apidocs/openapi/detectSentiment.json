@@ -1,0 +1,144 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "detectSentiment",
+    "version": "1.0",
+    "contact": {
+      "name": "Leor Brenman",
+      "email": "lbrenman99@hotmail.com"
+    },
+    "description": "Detect sentiment  "
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Leor Brenman"
+    }
+  ],
+  "paths": {
+    "/detectSentiment": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sentiment"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "SentimentScore": {
+                        "Mixed": 0.0033542951568961143,
+                        "Positive": 0.9869875907897949,
+                        "Neutral": 0.008563132025301456,
+                        "Negative": 0.0010949420975521207
+                      },
+                      "Sentiment": "POSITIVE"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-detectSentiment",
+        "description": "Detect sentiment of provided text. Supported languages: English, Spanish, French, German, Italian, Portugese, Arabic, Hindi, Japanese, Korean, Chinese, Chinese (Taiwanese)",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "text",
+            "description": "Text to detect sentiment of",
+            "required": true
+          }
+        ],
+        "tags": [
+          "detectSentiment"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Sentiment": {
+        "description": "Sentiment",
+        "type": "object",
+        "x-examples": {
+          "example-1": {
+            "SentimentScore": {
+              "Mixed": 0.0033542951568961143,
+              "Positive": 0.9869875907897949,
+              "Neutral": 0.008563132025301456,
+              "Negative": 0.0010949420975521207
+            },
+            "Sentiment": "POSITIVE"
+          }
+        },
+        "examples": [
+          {
+            "SentimentScore": {
+              "Mixed": 0,
+              "Positive": 0,
+              "Neutral": 0,
+              "Negative": 0
+            },
+            "Sentiment": "string"
+          }
+        ],
+        "properties": {
+          "SentimentScore": {
+            "type": "object",
+            "required": [
+              "Mixed",
+              "Positive",
+              "Neutral",
+              "Negative"
+            ],
+            "properties": {
+              "Mixed": {
+                "type": "number"
+              },
+              "Positive": {
+                "type": "number"
+              },
+              "Neutral": {
+                "type": "number"
+              },
+              "Negative": {
+                "type": "number"
+              }
+            }
+          },
+          "Sentiment": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "SentimentScore",
+          "Sentiment"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "detectSentiment"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+triggers:
+  openapi-detectsentiment-1:
+    name: get-detectSentiment
+    parameters:
+      method: get-detectSentiment
+    enabled: true
+    invoke:
+      flow: get-detectSentiment
+      parameters:
+        request: $.request
+        config: $.config
+        env: $.env

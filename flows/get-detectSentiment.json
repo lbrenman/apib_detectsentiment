@@ -1,0 +1,150 @@
+{
+	"schemaVersion": "4",
+	"info": {
+		"name": "get-detectSentiment"
+	},
+	"parameter": {
+		"properties": {
+			"request": {
+				"description": "The request"
+			},
+			"config": {
+				"type": "object",
+				"description": "The service's configuration"
+			},
+			"env": {
+				"type": "object",
+				"description": "The host OS environment"
+			}
+		},
+		"additionalProperties": false
+	},
+	"start": "comprehend-sdk.2",
+	"nodes": {
+		"http.1": {
+			"type": "nodehandler://axway-flow/http",
+			"name": "Set HTTP Response",
+			"method": "setresponse",
+			"parameters": [
+				{
+					"name": "status",
+					"type": "number",
+					"value": "200",
+					"metaName": "Status",
+					"metaDescription": "The HTTP status code"
+				},
+				{
+					"name": "body",
+					"type": "jsonpath",
+					"value": "$.sentimentResponse",
+					"metaName": "Body",
+					"metaDescription": "The response payload"
+				}
+			],
+			"outputs": {
+				"next": {
+					"context": "$.response",
+					"routes": [],
+					"metaName": "Next"
+				}
+			},
+			"metaMethod": "Set HTTP Response"
+		},
+		"comprehend-sdk.1": {
+			"type": "nodehandler://api-builder-plugin-comprehend-sdk/comprehend-sdk",
+			"name": "Detect Sentiment",
+			"method": "detectSentiment",
+			"parameters": [
+				{
+					"name": "Text",
+					"type": "jsonpath",
+					"value": "$.request.query.text",
+					"metaName": "Text",
+					"metaDescription": "A UTF-8 text string you want to detect the sentiment of. The string must contain fewer that 5,000 bytes of UTF-8 encoded characters."
+				},
+				{
+					"name": "LanguageCode",
+					"type": "jsonpath",
+					"value": "$.dominantLanguageResponse.Languages[0].LanguageCode"
+				}
+			],
+			"outputs": {
+				"next": {
+					"routes": [
+						"http.1"
+					],
+					"context": "$.sentimentResponse",
+					"metaName": "Next"
+				},
+				"error": {
+					"routes": [
+						"http.2"
+					],
+					"context": "$.comprehendError",
+					"metaName": "Error"
+				}
+			},
+			"metaMethod": "Detect Sentiment"
+		},
+		"http.2": {
+			"type": "nodehandler://axway-flow/http",
+			"name": "Set HTTP Erroro Response",
+			"method": "setresponse",
+			"parameters": [
+				{
+					"name": "status",
+					"type": "number",
+					"value": "400",
+					"metaName": "Status",
+					"metaDescription": "The HTTP status code"
+				},
+				{
+					"name": "body",
+					"type": "jsonpath",
+					"value": "$.comprehendError",
+					"metaName": "Body",
+					"metaDescription": "The response payload"
+				}
+			],
+			"outputs": {
+				"next": {
+					"context": "$.response",
+					"routes": [],
+					"metaName": "Next"
+				}
+			},
+			"metaMethod": "Set HTTP Response"
+		},
+		"comprehend-sdk.2": {
+			"type": "nodehandler://api-builder-plugin-comprehend-sdk/comprehend-sdk",
+			"name": "Detect Dominant Language",
+			"method": "detectDominantLanguage",
+			"parameters": [
+				{
+					"name": "Text",
+					"type": "jsonpath",
+					"value": "$.request.query.text",
+					"metaName": "Text",
+					"metaDescription": "A UTF-8 text string you want to detect the dominant language of. The string must contain fewer that 5,000 bytes of UTF-8 encoded characters."
+				}
+			],
+			"outputs": {
+				"next": {
+					"routes": [
+						"comprehend-sdk.1"
+					],
+					"context": "$.dominantLanguageResponse",
+					"metaName": "Next"
+				},
+				"error": {
+					"routes": [
+						"http.2"
+					],
+					"context": "$.comprehendError",
+					"metaName": "Error"
+				}
+			},
+			"metaMethod": "Detect Dominant Language"
+		}
+	}
+}
