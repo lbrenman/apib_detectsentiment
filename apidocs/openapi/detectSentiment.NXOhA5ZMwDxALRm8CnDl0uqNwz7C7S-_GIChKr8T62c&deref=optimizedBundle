@@ -1,0 +1,149 @@
+openapi: 3.0.0
+info:
+  title: detectSentiment
+  version: '1.0'
+  contact:
+    name: Leor Brenman
+    email: lbrenman99@hotmail.com
+    url: www.leorbrenman.com
+  description: 'Detect sentiment  '
+  license:
+    name: Apache 2.0
+    url: www.leorbrenman.com
+servers:
+  - url: 'http://localhost:8080/api'
+    description: Local
+paths:
+  /detectSentiment:
+    get:
+      summary: Your GET endpoint
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sentiment'
+              examples:
+                example-1:
+                  value:
+                    SentimentScore:
+                      Mixed: 0.0033542951568961143
+                      Positive: 0.9869875907897949
+                      Neutral: 0.008563132025301456
+                      Negative: 0.0010949420975521207
+                    Sentiment: POSITIVE
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  example-1:
+                    message: >-
+                      Value 'nl' at 'languageCode'failed to satisfy constraint:
+                      Member must satisfy enum value set: [ar, hi, ko, zh-TW,
+                      ja, zh, de, pt, en, it, fr, es]
+                    code: ValidationException
+                    time: '2022-04-07T23:13:35.103Z'
+                    requestId: 2d548718-6aaa-4be7-b8f6-702b3f0669f7
+                    statusCode: 400
+                    retryable: false
+                    retryDelay: 90.00311674193672
+                properties:
+                  message:
+                    type: string
+                  code:
+                    type: string
+                  time:
+                    type: string
+                    format: date-time
+                  requestId:
+                    type: string
+                  statusCode:
+                    type: integer
+                  retryable:
+                    type: boolean
+                  retryDelay:
+                    type: number
+              examples:
+                example-1:
+                  value:
+                    message: >-
+                      Value 'nl' at 'languageCode'failed to satisfy constraint:
+                      Member must satisfy enum value set: [ar, hi, ko, zh-TW,
+                      ja, zh, de, pt, en, it, fr, es]
+                    code: ValidationException
+                    time: '2022-04-07T23:13:35.103Z'
+                    requestId: 2d548718-6aaa-4be7-b8f6-702b3f0669f7
+                    statusCode: 400
+                    retryable: false
+                    retryDelay: 90.00311674193672
+      operationId: get-detectSentiment
+      description: >-
+        Detect sentiment of provided text. Supported languages: English,
+        Spanish, French, German, Italian, Portugese, Arabic, Hindi, Japanese,
+        Korean, Chinese, Chinese (Taiwanese)
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: text
+          description: Text to detect sentiment of
+          required: true
+      tags:
+        - detectSentiment
+components:
+  schemas:
+    Sentiment:
+      description: Sentiment
+      type: object
+      x-examples:
+        example-1:
+          SentimentScore:
+            Mixed: 0.0033542951568961143
+            Positive: 0.9869875907897949
+            Neutral: 0.008563132025301456
+            Negative: 0.0010949420975521207
+          Sentiment: POSITIVE
+      examples:
+        - SentimentScore:
+            Mixed: 0.0033542951568961143
+            Positive: 0.9869875907897949
+            Neutral: 0.008563132025301456
+            Negative: 0.0010949420975521207
+          Sentiment: POSITIVE
+      properties:
+        SentimentScore:
+          type: object
+          required:
+            - Mixed
+            - Positive
+            - Neutral
+            - Negative
+          properties:
+            Mixed:
+              type: number
+            Positive:
+              type: number
+            Neutral:
+              type: number
+            Negative:
+              type: number
+        Sentiment:
+          type: string
+          minLength: 1
+      required:
+        - SentimentScore
+        - Sentiment
+  securitySchemes:
+    apikey:
+      name: apikey
+      type: apiKey
+      in: header
+tags:
+  - name: detectSentiment
+    description: Detect Sentiment
+security:
+  - apikey: []

@@ -73,7 +73,8 @@
                       "type": "string"
                     },
                     "time": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "date-time"
                     },
                     "requestId": {
                       "type": "string"
