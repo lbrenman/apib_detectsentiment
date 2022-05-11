@@ -72,7 +72,9 @@
                     "code": {
                       "type": "string"
                     },
-                    "time": {},
+                    "time": {
+                      "type": "string"
+                    },
                     "requestId": {
                       "type": "string"
                     },
