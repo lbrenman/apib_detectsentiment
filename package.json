@@ -24,7 +24,7 @@
 		"@axway/api-builder-plugin-fn-mustache": "^1.0.11",
 		"@axway/api-builder-plugin-fn-restclient": "^2.0.26",
 		"@axway/api-builder-plugin-fn-swagger": "^3.0.8",
-		"@axway/api-builder-plugin-ft-oas": "^1.0.0",
+		"@axway/api-builder-plugin-ft-oas": "^1.3.2-rdpp-7394-0a9153.0.0",
 		"@axway/api-builder-plugin-invoke-flow": "^1.1.2",
 		"@axway/api-builder-runtime": "^4.74.8",
 		"api-builder-plugin-comprehend-sdk": "^1.0.6"
