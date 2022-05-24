@@ -10,7 +10,7 @@ The API is shown below:
 
 `GET /detectSentiment?text=this%20is%20great`
 
-and accepts the text to be analyzed.
+and accepts the text to be analyzed as query parameter, "text".
 
 It returns the sentiment of the text:
 
