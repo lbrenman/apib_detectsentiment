@@ -36,24 +36,4 @@ The container requires three env vars:
 
 You can read about AWS credentials [here](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-environment.html).
 
-You can run the container locally using the following commands:
-
-`docker run --name apib_detectsentiment -e <API KEY YOU PROVIDE> -e AWS_ACCESS_KEY_ID=<YOUR AWS ACCESS KEY> -e AWS_SECRET_ACCESS_KEY=<YOUR AWS SECRET> -p 8080:8080 --rm lbrenman/apib_detectsentiment:latest`
-
-`curl -is -H "accept: application/json" -H "apikey: <API KEY YOU PROVIDE>" -X GET "http://localhost:8080/api/detectSentiment?text=Das%20ist%20nicht%20gut"`
-
-Response:
-
-```
-{
-  "Sentiment": "NEGATIVE",
-  "SentimentScore": {
-    "Positive": 0.00007716986874584109,
-    "Negative": 0.999670147895813,
-    "Neutral": 0.00024405473959632218,
-    "Mixed": 0.000008644425179227255
-  }
-}
-```
-
 A docker image can be accessed [here](https://hub.docker.com/r/lbrenman/apib_detectsentiment)
