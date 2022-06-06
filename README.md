@@ -4,7 +4,7 @@ A sentiment analysis natural language processing API example based on API Builde
 
 The API is an example of an API First API designed in Stoplight and Built in API Builder as described in the following blog post:
 
-* [An “API First” sentiment analysis API using API Builder](https://gist.github.com/lbrenman/4caca78903cdf1b23251e51868e300dd)
+* [An “API First” sentiment analysis API using API Builder](https://blog.axway.com/amplify-api-management-platform/sentiment-analysis-api)
 
 The API is shown below:
 
